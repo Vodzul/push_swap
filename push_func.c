@@ -16,11 +16,11 @@ void	push(t_stack **from, t_stack **to)
 void	pa(t_stack **a, t_stack **b)
 {
 	push(b, a);
-	ft_putstr("pa\n", 1);
+	ft_putstr_fd("pa\n", 1);
 }
 
 void	pb(t_stack **a, t_stack **b)
 {
-	push(b, a);
-	ft_putstr("pb\n", 1);
+	push(a, b);
+	ft_putstr_fd("pb\n", 1);
 }

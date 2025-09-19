@@ -6,6 +6,9 @@
 # include <unistd.h>
 # include "libft/libft.h"
 
+# define INT_MAX 2147483647
+# define INT_MIN (-2147483648)
+
 typedef struct s_stack
 {
 	int				value;
@@ -28,5 +31,10 @@ void	rr(t_stack **a, t_stack **b);
 void	rra(t_stack **a);
 void	rrb(t_stack **b);
 void	rrr(t_stack **a, t_stack **b);
+
+void	sort_three(t_stack **a);
+int		find_min(t_stack *a);
+void	sort_five(t_stack **a, t_stack **b);
+void	small_sort(t_stack **a, t_stack **b);
 
 #endif
