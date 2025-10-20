@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   positive_stack.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: facelik <facelik@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/20 20:35:15 by facelik           #+#    #+#             */
+/*   Updated: 2025/10/20 20:39:46 by facelik          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
@@ -43,9 +54,9 @@ int	find_pos(int *arr, int find, int size)
 
 void	stack_to_arr(t_stack **a, int *arr)
 {
-	t_stack *temp;
-	int	i;
-	int size;
+	t_stack	*temp;
+	int		i;
+	int		size;
 
 	size = stack_size(*a);
 	arr = malloc(sizeof(int) * size);
@@ -61,10 +72,10 @@ void	stack_to_arr(t_stack **a, int *arr)
 
 void	positive_stack(t_stack **a)
 {
-	int	*arr;
-	t_stack *temp;
-	int	size;
-	int	pos;
+	int		*arr;
+	t_stack	*temp;
+	int		size;
+	int		pos;
 
 	size = stack_size(*a);
 	stack_to_arr(a, arr);
