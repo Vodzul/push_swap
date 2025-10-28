@@ -11,3 +11,24 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	issorted(t_stack *a)
+{
+	while (a)
+	{
+		if (a > a->next)
+			return (0);
+		a = a->next;
+	}
+	return (1);
+}
+
+int	main(int argc, char **argv)
+{
+	if (argc == 2)
+		twoarg(argv[2]);
+	else if (argc > 2)
+		multiplearg(argv);
+	else
+		ft_putstr_fd("Error\n", 1);
+}
