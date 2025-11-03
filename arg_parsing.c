@@ -1,8 +1,9 @@
 #include "push_swap.h"
 
-void	errorandquit(t_stack **a, char **arr, int i)
+void	errorandquit(t_stack **a, char **arr)
 {
-	freearr(arr);
+	if (arr)
+		freearr(arr);
 	destroy_stack(a);
 	ft_putstr_fd("Error\n", 2);
 }
@@ -12,6 +13,8 @@ void	freearr(char **arr)
 	int	i;
 
 	i = 0;
+	if (!arr)
+		freearr(arr);
 	while (arr[i])
 	{
 		free(arr[i]);
@@ -26,15 +29,19 @@ char	**twoarg(char *str)
 	char	*arr;
 	int	i;
 	
+	if (!str)
+		return (NULL);
 	arr = ft_strdup(str);
+	if (!arr)
+		return (NULL);
 	i = 0;
-	while (str[i])
+	while (arr[i])
 	{
-		if ((str[i] >= 9 && str[i] <= 13))
-			str[i] = 32;
+		if ((arr[i] >= 9 && arr[i] <= 13))
+			arr[i] = 32;
 		i++;
 	}
-	newarr = ft_split(str, ' ');
+	newarr = ft_split(arr, ' ');
 	free(arr);
 	return (newarr);
 }
@@ -43,6 +50,8 @@ int	checknum(char *str)
 {
 	int	i;
 	
+	if (!str)
+		return (0);
 	i = 0;
 	if (str[i] == 43 || str[i] == 45)
 	{
@@ -67,28 +76,30 @@ int	tostack(char **arr, t_stack **a)
 	long	num;
 	t_stack	*new;
 
+	if (!arr)
+		return (0);
 	i = 0;
 	while (arr[i])
 	{
 		if (!checknum(arr[i]))
 		{
-			errorandquit(a, arr, i);
+			errorandquit(a, arr);
 			return (0);
 		}
 		num = ft_atoi(arr[i]);
 		if (num > INT_MAX || num < INT_MIN)
 		{
-			errorandquit(a, arr, i);
+			errorandquit(a, arr);
 			return (0);
 		}
-		new = create_node(num);
+		new = create_node((int)num);
 		if (!new)
 		{
-			errorandquit(a, arr, i);
+			errorandquit(a, arr);
 			return (0);
 		}
 		stack_add_back(a, new);
 		i++;
 	}
-	destroy_stack(&new);
+	return (1);
 }

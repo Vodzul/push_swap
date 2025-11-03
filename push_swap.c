@@ -14,9 +14,9 @@
 
 int	issorted(t_stack *a)
 {
-	while (a)
+	while (a && a->next)
 	{
-		if (a > a->next)
+		if (a->value > a->next->value)
 			return (0);
 		a = a->next;
 	}
@@ -33,12 +33,14 @@ int	main(int argc, char **argv)
 	{
 		arr = twoarg(argv[1]);
 		if (!tostack(arr, &a))
-			return (freearr(arr), 0);
+			return (0);
 		freearr(arr);
 	}
 	else if (argc > 2)
+	{
 		if (!tostack((argv + 1), &a))
 			return (0);
+	}
 	else
 		return (0);
 	if (issorted(a))

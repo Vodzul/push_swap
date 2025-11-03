@@ -18,6 +18,8 @@ int	*bubble_sort(int *arr, int size)
 	int	j;
 	int	temp;
 
+	if (!arr || size <= 0)
+		return (arr);
 	j = 0;
 	i = 0;
 	while (i < size - 1)
@@ -42,6 +44,8 @@ int	find_pos(int *arr, int find, int size)
 {
 	int	i;
 
+	if (!arr)
+		return (-1);
 	i = 0;
 	while (i < size)
 	{
@@ -52,14 +56,19 @@ int	find_pos(int *arr, int find, int size)
 	return (-1); //error
 }
 
-int	*stack_to_arr(t_stack *a, int *arr)
+int	*stack_to_arr(t_stack *a)
 {
 	t_stack	*temp;
+	int		*arr;
 	int		i;
 	int		size;
 
+	if (!a)
+		return (NULL);
 	size = stack_size(a);
 	arr = malloc(sizeof(int) * size);
+	if (!arr)
+		return (NULL);
 	i = 0;
 	temp = a;
 	while (i < size)
@@ -71,23 +80,31 @@ int	*stack_to_arr(t_stack *a, int *arr)
 	return (arr);
 }
 
-void	positive_stack(t_stack *a)
+int	positive_stack(t_stack *a)
 {
 	int		*arr;
 	t_stack	*temp;
 	int		size;
 	int		pos;
 
+	if (!a || !a->next)
+		return (0);
 	arr = NULL;
 	size = stack_size(a);
-	arr = stack_to_arr(a, arr);
+	arr = stack_to_arr(a);
+	if (!arr)
+		return (0);
 	arr = bubble_sort(arr, size);
+	if (!isduplicate(arr, size))
+		return (free(arr), 0);
 	temp = a;
 	while (temp != NULL)
 	{
 		pos = find_pos(arr, temp->value, size);
+		if (pos < 0)
+			return (free(arr), 0);
 		temp->value = pos;
 		temp = temp->next;
 	}
-	free(arr);
+	return (free(arr), 1);
 }
