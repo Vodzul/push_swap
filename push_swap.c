@@ -6,7 +6,7 @@
 /*   By: facelik <facelik@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 20:35:22 by facelik           #+#    #+#             */
-/*   Updated: 2025/10/20 20:37:43 by facelik          ###   ########.fr       */
+/*   Updated: 2025/10/29 20:22:12 by facelik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,26 @@ int	issorted(t_stack *a)
 
 int	main(int argc, char **argv)
 {
+	t_stack	*a = NULL;
+	t_stack *b = NULL;
+	char	**arr;
+	
 	if (argc == 2)
-		twoarg(argv[2]);
+	{
+		arr = twoarg(argv[1]);
+		if (!tostack(arr, &a))
+			return (freearr(arr), 0);
+		freearr(arr);
+	}
 	else if (argc > 2)
-		multiplearg(argv);
+		if (!tostack((argv + 1), &a))
+			return (0);
 	else
-		ft_putstr_fd("Error\n", 1);
+		return (0);
+	if (issorted(a))
+		return (destroy_stack(&a), 0);
+	positive_stack(a);
+	sort_stack(&a, &b);
+	destroy_stack(&a);
+	destroy_stack(&b);
 }

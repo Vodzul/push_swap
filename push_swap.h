@@ -46,11 +46,18 @@ void	small_sort(t_stack **a, t_stack **b);
 //positive stack
 int	*bubble_sort(int *arr, int size);
 int	find_pos(int *arr, int find, int size);
-int	*stack_to_arr(t_stack **a);
-void	positive_stack(t_stack **a);
+int	*stack_to_arr(t_stack **a, int *arr);
+void	positive_stack(t_stack *a);
 
 //radix sort
 void	radix_sort(t_stack **a, t_stack **b, int count);
 void	sort_stack(t_stack **a, t_stack **b);
+
+//arg parsing
+void	errorandquit(t_stack **a, char **arr, int i);
+char	**twoarg(char *str);
+int		checknum(char *str);
+int		tostack(char **arr, t_stack **a);
+void	freearr(char **arr);
 
 #endif

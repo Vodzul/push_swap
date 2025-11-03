@@ -6,7 +6,7 @@
 /*   By: facelik <facelik@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 20:35:15 by facelik           #+#    #+#             */
-/*   Updated: 2025/10/20 20:39:46 by facelik          ###   ########.fr       */
+/*   Updated: 2025/10/29 20:37:11 by facelik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,35 +52,37 @@ int	find_pos(int *arr, int find, int size)
 	return (-1); //error
 }
 
-void	stack_to_arr(t_stack **a, int *arr)
+int	*stack_to_arr(t_stack *a, int *arr)
 {
 	t_stack	*temp;
 	int		i;
 	int		size;
 
-	size = stack_size(*a);
+	size = stack_size(a);
 	arr = malloc(sizeof(int) * size);
 	i = 0;
-	temp = *a;
+	temp = a;
 	while (i < size)
 	{
 		arr[i] = temp->value;
 		temp = temp->next;
 		i++;
 	}
+	return (arr);
 }
 
-void	positive_stack(t_stack **a)
+void	positive_stack(t_stack *a)
 {
 	int		*arr;
 	t_stack	*temp;
 	int		size;
 	int		pos;
 
-	size = stack_size(*a);
-	stack_to_arr(a, arr);
+	arr = NULL;
+	size = stack_size(a);
+	arr = stack_to_arr(a, arr);
 	arr = bubble_sort(arr, size);
-	temp = *a;
+	temp = a;
 	while (temp != NULL)
 	{
 		pos = find_pos(arr, temp->value, size);
