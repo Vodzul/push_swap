@@ -6,7 +6,7 @@
 /*   By: facelik <facelik@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 20:35:30 by facelik           #+#    #+#             */
-/*   Updated: 2025/10/20 20:35:34 by facelik          ###   ########.fr       */
+/*   Updated: 2025/12/06 07:17:34 by facelik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,4 @@ void	sort_stack(t_stack **a, t_stack **b)
 	}
 	else
 		small_sort(a, b);
-} // kucuk size kontrolu yapmadim
+}

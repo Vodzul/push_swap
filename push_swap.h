@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: facelik <facelik@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/06 07:19:37 by facelik           #+#    #+#             */
+/*   Updated: 2025/12/06 07:23:17 by facelik          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
@@ -47,17 +58,17 @@ void	small_sort(t_stack **a, t_stack **b);
 int	*bubble_sort(int *arr, int size);
 int	find_pos(int *arr, int find, int size);
 int	*stack_to_arr(t_stack *a);
-void	positive_stack(t_stack *a);
+int	positive_stack(t_stack *a);
 
 //radix sort
 void	radix_sort(t_stack **a, t_stack **b, int count);
 void	sort_stack(t_stack **a, t_stack **b);
 
 //arg parsing
-void	errorandquit(t_stack **a, char **arr);
-char	**twoarg(char *str);
-int		checknum(char *str);
-int		tostack(char **arr, t_stack **a);
-void	freearr(char **arr);
+void	error_and_quit(t_stack **a, char **arr);
+char	**arg_parsing(char **argv);
+int		check_num(char **argv);
+int		to_stack(char **arr, t_stack **a);
+void	free_arr(char **arr);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: facelik <facelik@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 20:35:15 by facelik           #+#    #+#             */
-/*   Updated: 2025/10/29 20:37:11 by facelik          ###   ########.fr       */
+/*   Updated: 2025/12/06 07:16:28 by facelik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	*bubble_sort(int *arr, int size)
 		i++;
 	}
 	return (arr);
-} // time complexity cok olursa flagle dizi sirali mi diye kontrol et
+}
 
 int	find_pos(int *arr, int find, int size)
 {
@@ -53,7 +53,7 @@ int	find_pos(int *arr, int find, int size)
 			return (i);
 		i++;
 	}
-	return (-1); //error
+	return (-1);
 }
 
 int	*stack_to_arr(t_stack *a)
@@ -95,8 +95,6 @@ int	positive_stack(t_stack *a)
 	if (!arr)
 		return (0);
 	arr = bubble_sort(arr, size);
-	if (!isduplicate(arr, size))
-		return (free(arr), 0);
 	temp = a;
 	while (temp != NULL)
 	{

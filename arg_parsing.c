@@ -1,102 +1,134 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   arg_parsing.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: facelik <facelik@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/06 07:14:27 by facelik           #+#    #+#             */
+/*   Updated: 2025/12/06 07:23:03 by facelik          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-void	errorandquit(t_stack **a, char **arr)
+long	ft_atol(char *str)
 {
-	if (arr)
-		freearr(arr);
-	destroy_stack(a);
-	ft_putstr_fd("Error\n", 2);
-}
+	int		i;
+	int		sign;
+	long	result;
 
-void	freearr(char **arr)
-{
-	int	i;
-
+	sign = 1;
 	i = 0;
-	if (!arr)
-		freearr(arr);
-	while (arr[i])
+	result = 0;
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		free(arr[i]);
+		if (str[i] == '-')
+			sign = -1;
 		i++;
 	}
-	free(arr);
+	while (str[i] >= 48 && str[i] <= 57)
+	{
+		result = result * 10 + str[i] - 48;
+		i++;
+	}
+	return (result * sign);
 }
 
-char	**twoarg(char *str)
+char	**join_split(char **argv)
+{
+	int		i;
+	char	*temp;
+	char	*tmp;
+	char	**ret;
+
+	i = -1;
+	temp = NULL;
+	tmp = "";
+	while (argv[++i])
+	{
+		temp = ft_strjoin(argv[i], " ");
+		tmp = ft_strjoin(ft_strdup(tmp), temp);
+	}
+	ret = ft_split(tmp, 32);
+	return (ret);
+}
+
+char	**arg_parsing(char **argv)
 {
 	char	**newarr;
-	char	*arr;
-	int	i;
-	
-	if (!str)
-		return (NULL);
-	arr = ft_strdup(str);
-	if (!arr)
-		return (NULL);
+	int		i;
+	int		j;
+
+	if (!argv || argv[0][0] == '\0')
+		return (ft_putstr_fd("Error\n", 2), NULL);
 	i = 0;
-	while (arr[i])
+	while (argv[i])
 	{
-		if ((arr[i] >= 9 && arr[i] <= 13))
-			arr[i] = 32;
+		j = 0;
+		while (argv[i][j])
+		{
+			if ((argv[i][j] >= 9 && argv[i][j] <= 13))
+				argv[i][j] = 32;
+			j++;
+		}
 		i++;
 	}
-	newarr = ft_split(arr, ' ');
-	free(arr);
+	i = -1;
+	newarr = join_split(argv);
+	if (!checknum(newarr))
+		return (freearr(newarr), NULL);
 	return (newarr);
 }
 
-int	checknum(char *str)
+int	checknum(char **argv)
 {
 	int	i;
-	
-	if (!str)
-		return (0);
+	int	j;
+
 	i = 0;
-	if (str[i] == 43 || str[i] == 45)
-	{
-		if (!ft_isdigit((str[i + 1])))
-			return (0);
-		i++;
-	}
-	if (str[i] == '\0')
+	if (!argv[i])
 		return (0);
-	while (str[i])
+	while (argv[i])
 	{
-		if (!ft_isdigit(str[i]))
+		j = 0;
+		if (argv[i][j] == '-' || argv[i][j] == '+')
+			j++;
+		if (!ft_isdigit(argv[i][j]))
 			return (0);
+		while (argv[i][j])
+		{
+			if (!ft_isdigit(argv[i][j]))
+				return (0);
+			j++;
+		}
 		i++;
 	}
 	return (1);
 }
 
-int	tostack(char **arr, t_stack **a)
+int	to_stack(char **arr, t_stack **a)
 {
 	int		i;
 	long	num;
 	t_stack	*new;
 
-	if (!arr)
-		return (0);
 	i = 0;
 	while (arr[i])
 	{
-		if (!checknum(arr[i]))
-		{
-			errorandquit(a, arr);
-			return (0);
-		}
-		num = ft_atoi(arr[i]);
+		num = ft_atol(arr[i]);
 		if (num > INT_MAX || num < INT_MIN)
 		{
 			errorandquit(a, arr);
-			return (0);
+			return (ft_putstr_fd("Error\n", 2), 0);
 		}
 		new = create_node((int)num);
 		if (!new)
 		{
 			errorandquit(a, arr);
-			return (0);
+			return (ft_putstr_fd("Error\n", 2), 0);
 		}
 		stack_add_back(a, new);
 		i++;
