@@ -6,13 +6,13 @@
 /*   By: facelik <facelik@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 07:14:27 by facelik           #+#    #+#             */
-/*   Updated: 2025/12/06 07:23:03 by facelik          ###   ########.fr       */
+/*   Updated: 2025/12/06 07:26:00 by facelik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-long	ft_atol(char *str)
+static long	ft_atol(char *str)
 {
 	int		i;
 	int		sign;
@@ -37,7 +37,7 @@ long	ft_atol(char *str)
 	return (result * sign);
 }
 
-char	**join_split(char **argv)
+static char	**join_split(char **argv)
 {
 	int		i;
 	char	*temp;
@@ -54,6 +54,32 @@ char	**join_split(char **argv)
 	}
 	ret = ft_split(tmp, 32);
 	return (ret);
+}
+
+static int	checknum(char **argv)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	if (!argv[i])
+		return (0);
+	while (argv[i])
+	{
+		j = 0;
+		if (argv[i][j] == '-' || argv[i][j] == '+')
+			j++;
+		if (!ft_isdigit(argv[i][j]))
+			return (0);
+		while (argv[i][j])
+		{
+			if (!ft_isdigit(argv[i][j]))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
 }
 
 char	**arg_parsing(char **argv)
@@ -81,32 +107,6 @@ char	**arg_parsing(char **argv)
 	if (!checknum(newarr))
 		return (freearr(newarr), NULL);
 	return (newarr);
-}
-
-int	checknum(char **argv)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	if (!argv[i])
-		return (0);
-	while (argv[i])
-	{
-		j = 0;
-		if (argv[i][j] == '-' || argv[i][j] == '+')
-			j++;
-		if (!ft_isdigit(argv[i][j]))
-			return (0);
-		while (argv[i][j])
-		{
-			if (!ft_isdigit(argv[i][j]))
-				return (0);
-			j++;
-		}
-		i++;
-	}
-	return (1);
 }
 
 int	to_stack(char **arr, t_stack **a)
